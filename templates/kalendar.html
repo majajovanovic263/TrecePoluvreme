@@ -1,0 +1,462 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <style>
+    button[type="submit"] {
+    text-align: center;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     max-width: 100%;
+     color: white;
+     text-decoration: none;
+     font-size: 24px;
+        padding: 2px;
+     background: #407d0e;
+     background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+     background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+     background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+     background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+     background-image: linear-gradient(to bottom, #407d0e, #2c4a15);
+     -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+     border-radius: 10px;
+     -webkit-box-shadow: 0px 0px 30px #2c4a15;
+     -moz-box-shadow: 0px 0px 30px #2c4a15;
+     box-shadow: 0px 0px 30px #2c4a15;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+        white-space: nowrap;
+
+
+  }
+
+
+  </style>
+    <head>
+
+        <title>Početna stranica igrača</title>
+
+        <link rel="stylesheet" href="../static/css/template_style.css">
+        <link rel="stylesheet" href="../static/css/kalendar.css">
+        <script src="../static/java/pocetna_stranica_igraca.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    </head>
+    <body onload="kale1()" style="background: url('../static/img/balon1.avif') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+  width: 100%;
+  height: 100vh;">
+
+        <div class="header">
+          <div class="logo">
+            <img src="../static/img/soccer-ball-icon.png" alt="soccer ball icon">
+              <ul  style="width: max-content;justify-content: center;align-content: center">
+                <li style="display: inline-block"><a onclick="openPopup1()">Utakmice</a></li>
+                <li style="display: inline-block"><a href="{% url "logout_req" %}">Log Out</a></li>
+                <li style="display: inline-block;margin-right: 10px">
+                    <form id="f10" method="post" action="{% url "newPlayer" %}" style="justify-content: center; display: flex; align-content: center">
+                        {% csrf_token %}
+                        {{forma10.vidljivo10}}
+                        {{forma10.skriveno10}}
+                        <button type="submit" onclick="posalji10({{ timOb.idt }})" style="margin-left: 50px; padding: 0px 0px 0px 0px;height: 35px; width: 150px"> Pošalji zahtev  </button >
+                    </form>
+                </li>
+              </ul>
+
+
+          </div>
+        </div>
+
+	<main>
+		<div class="container" style="width: 100%">
+
+			<div class="player-info" style="width: 100%">
+
+				<div class="profile-picture" style="background-image: url(../static/img/dres.png);
+				  background-size:200px 200px;
+                  background-repeat:   no-repeat;
+                  background-position: center center;" >
+					{#<img src="../static/img/dres.png">#}
+                    <div style="margin-top: 20%">
+                        <h2>{{request.user.prezime}} </h2>
+                        <h2 style="font-size: 45px; margin-top: 10px"> {{igr}} </h2>
+                        <div style="text-shadow: 1px 1px 1px rgba(0,0,0,0.6);padding-left: 15%; padding-right: 15%; text-align: center;color: #407d0e; font-size: large; font-weight: bold" id="nazivTima">{{ timC }}</div>
+
+                    </div>
+				</div>
+
+				<div class="player-details">
+					<h2>{{request.user.ime}}</h2>
+                    <p>Godište: {{request.user.godiste}}.</p>
+                    <p>Lokacija: {{request.user.mesto.mesto}},Srbija</p>
+                    <p>Stanje na računu za tim {{ timC }}: {{racun.stanje}}rsd</p>
+
+                    <p id="hid">{{red}}</p>
+                    <p id="idTC" style=" display:none; visibility: hidden">{{ idTC }}</p>
+
+				</div>
+
+
+
+						<div class="week-calendar">
+				<table id="table">
+					<thead>
+                        <tr>
+                            <th colspan="8" >Kalendar ekipe {{ timC }}</th>
+                        </tr>
+						<tr>
+							<th>Termini tima</th>
+							<th>Ponedeljak</th>
+							<th>Utorak</th>
+							<th>Sreda</th>
+							<th>Četvrtak</th>
+							<th>Petak</th>
+                            <th>Subota</th>
+							<th>Nedelja</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">08:00-09:00</td>
+							<td class="unavailable1" id="PO:8" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:8" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:8" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:8" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:8" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:8" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:8" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">09:00-10:00</td>
+							<td class="unavailable1" id="PO:9" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:9" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:9" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:9" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:9" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:9" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:9" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">10:00-11:00</td>
+							<td class="unavailable1" id="PO:10" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:10" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:10" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:10" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:10" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:10" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:10" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">11:00-12:00</td>
+							<td class="unavailable1" id="PO:11" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:11" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:11" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:11" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:11" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:11" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:11" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">12:00-13:00</td>
+							<td class="unavailable1" id="PO:12" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:12" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:12" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:12" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:12" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:12" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:12" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">13:00-14:00</td>
+							<td class="unavailable1" id="PO:13" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:13" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:13" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:13" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:13" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:13" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:13" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">14:00-15:00</td>
+							<td class="unavailable1" id="PO:14" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:14" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:14" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:14" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:14" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:14" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:14" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">15:00-16:00</td>
+							<td class="unavailable1" id="PO:15" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:15" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:15" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:15" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:15" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:15" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:15" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">16:00-17:00</td>
+							<td class="unavailable1" id="PO:16" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:16" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:16" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:16" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:16" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:16" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:16" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">17:00-18:00</td>
+							<td class="unavailable1" id="PO:17" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:17" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:17" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:17" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:17" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:17" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:17" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">18:00-19:00</td>
+							<td class="unavailable1" id="PO:18" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:18" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:18" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:18" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:18" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:18" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:18" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">19:00-20:00</td>
+							<td class="unavailable1" id="PO:19" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:19" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:19" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:19" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:19" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:19" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:19" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">20:00-21:00</td>
+							<td class="unavailable1" id="PO:20" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:20" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:20" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:20" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:20" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:20" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:20" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">21:00-22:00</td>
+							<td class="unavailable1" id="PO:21" onclick="toggleAvailability2(this)">
+
+                            </td>
+							<td class="unavailable1" id="UT:21" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:21" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:21" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:21" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:21" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:21" onclick="toggleAvailability2(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">22:00-23:00</td>
+							<td class="unavailable1" id="PO:22" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="UT:22" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SR:22" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="CT:22" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="PT:22" onclick="toggleAvailability2(this)"></td>
+                            <td class="unavailable1" id="SU:22" onclick="toggleAvailability2(this)"></td>
+							<td class="unavailable1" id="NE:22" onclick="toggleAvailability2(this)"></td>
+						</tr>
+            </tbody>
+           </table>
+
+
+
+              <div id="myPopup" class="popup">
+                  <div class="popup-content">
+                   <span class="close" onclick="closePopup()">&times;</span>
+                        <ul>
+                            <li>
+                                <a id="naslov" style="text-align: center"></a>
+
+                            </li>
+                            <li>
+                                 <form id="f3" method="post" action="{% url "rival" %}" >
+                                     {% csrf_token %}
+                                        {{hiddenforma3.skriveno3}}
+                                <button type="submit" id="pSala"   onclick = "posalji3(document.getElementById('idTC').innerText)"> Utakmica <br>(nema nas dovoljno u timu za dve ekipe)  </button >
+                                </form>
+                                 <form id="f3" method="post" action="{% url "solo" %}" >
+                                     {% csrf_token %}
+                                        {{hiddenforma3.skriveno3}}
+                                <button type="submit" id="pSalaSolo"   onclick = "posalji3(document.getElementById('idTC').innerText)"> Trening <br>(ima nas dovoljno u timu za dve ekipe)  </button >
+                                </form>
+                            </li>
+
+                        </ul>
+                 </div>
+             </div>
+             	
+             <div id="myPopup1" class="popup">
+                <div class="popup-content">
+                 <span class="close" onclick="closePopup1()">&times;</span>
+                      <ul>
+                          <li>
+                          {% for x in tekme %}
+                              {% if x.idt1 == timOb %}
+                                  {{ x.idt1.naziv }}-{{ x.idt2.naziv }}<br>
+
+                                  {% if x.idt2 == timOb %}
+                                      {% if x.placen != 3 %}
+                                         Cena za tim {{ x.idt1.naziv }}: {{ x.cena }}rsd
+
+                                              <form id="f2" method="post" action="{% url "uplatiSalu" %}">
+                                                  {% csrf_token %}
+                                                  {{hiddenforma2.skriveno2}}
+                                                  <button type="submit" onclick = "uplataSale1(3,{{ timOb.idt }},{{ x.idtr }})" > Uplati termin </button >
+                                              </form>
+
+                                      {% else %}
+                                      Termin uplaćen<br><br>
+                                      {% endif %}
+                                  {% else %}
+                                      {% if x.placen != 3 %}
+                                          {% if x.placen != 1 %}
+                                              Cena za tim {{ x.idt1.naziv }}:<div style="display: inline" id="pom1-{{ forloop.counter}}"></div>rsd
+                                               <script type="text/javascript" style="display:none; visibility: hidden">
+                                                  document.getElementById("pom1-"+{{ forloop.counter }}).innerHTML =" "+(parseInt({{ x.cena }})/2).toFixed(2);
+                                               </script>
+
+                                                  <form id="f2" method="post" action="{% url "uplatiSalu" %}">
+                                                      {% csrf_token %}
+                                                      {{hiddenforma2.skriveno2}}
+                                                      <button type="submit" onclick = "uplataSale1(1,{{ timOb.idt }},{{ x.idtr }})" > Uplati termin </button >
+                                                  </form>
+
+                                          {% endif %}
+
+                                      {% else %}
+                                      Termin uplaćen<br><br>
+                                      {% endif %}
+                                  {% endif %}
+                              {% else %}
+                                  {{ x.idt1.naziv }}-{{ x.idt2.naziv }}<br>
+
+                                  {% if x.placen != 3 %}
+                                      {% if x.placen != 2 %}
+                                          Cena za tim {{ x.idt2.naziv }}: <div style="display: inline" id="pom1-{{ forloop.counter }}"></div>rsd
+                                      <script type="text/javascript" style="display:none;visibility: hidden">
+                                          document.getElementById("pom1-"+{{ forloop.counter }}).innerHTML = " "+(parseInt({{x.cena}})/2).toFixed(2);
+                                      </script>
+
+                                              <form id="f2" method="post" action="{% url "uplatiSalu" %}">
+                                                  {% csrf_token %}
+                                                  {{hiddenforma2.skriveno2}}
+                                                  <button type="submit" onclick = "uplataSale1(2,{{ timOb.idt }},{{ x.idtr }})" > Uplati termin </button >
+                                              </form>
+
+
+                                      {% endif %}
+                                  {% else %}
+                                      Termin uplaćen<br><br>
+                                  {% endif %}
+                              {% endif %}
+                          {% endfor %}
+                          </li>
+                      </ul>
+               </div>
+           </div>
+
+          </div>
+		</div>
+
+        </div>
+    </main>
+  </body>
+
+  <footer>
+	<p>&nbsp</p>
+  </footer>
+
+</html>

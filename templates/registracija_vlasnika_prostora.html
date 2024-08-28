@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>NASLOV</title>
+
+
+      <link rel="stylesheet" href="../static/css/template_style.css">
+      <link rel="stylesheet" href="../static/css/registracija.css">
+      <script src="../static/java/pocetna_stranica.js"></script>
+
+
+  <div class="header">
+    <div class="logo">
+      <img src="../static/img/soccer-ball-icon.png" alt="soccer ball icon">
+      Treće Poluvreme
+    </div>
+  </div>
+
+  </head>
+  <body style="
+         background: url('../static/img/balon1.avif') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+  width: 100%;
+  height: 100vh;
+
+                 ">
+  <div class = "container">
+      <form method = "POST" action = {% url "registrationV_req" %}>
+      {% csrf_token %}
+        {{ forma.as_p }}
+
+        <button type ="submit" onclick="proveriFormu2()">Registruj</button>
+{#        <h2>Registracija vlasnika prostora</h2>#}
+{#        <label for="username">Korisničko ime:</label>#}
+{#        <br><span class = "greska" id = "korisnickoImeGreska"></span>#}
+{#        <input type="text" id="username" required placeholder="Unesite korisničko ime...">#}
+{#    #}
+{#        <label for="password1">Lozinka:</label>#}
+{#        <br><span class = "greska" id = "lozinkaGreska"></span>#}
+{#        <input type="password" id ="password1" placeholder="Unesite lozinku...">#}
+{#        <div class="lozinka1">Lozinka mora imati 6-8 karaktera,barem jedno veliko slovo i barem jedan broj</div>#}
+{#    #}
+{#        <label for="password2">Potvrda lozinke:</label>#}
+{#        <br><span class = "greska" id="potvrdaGreska"></span>#}
+{#        <input type="password" id = "password2" placeholder = "Unesite potvrdu lozinke...">#}
+{#    #}
+{#        <label for="email">Email:</label>#}
+{#        <br><span class = "greska" id = "emailGreska"></span>#}
+{#        <input type="email" id="email" required placeholder="Unesite email...">#}
+{#    #}
+{#        <label for="phone">Kontakt telefon:</label>#}
+{#        <br><span class ="greska" id = "telefonGreska"></span>#}
+{#        <input type="tel" id="phone" required placeholder="Unesite kontakt telefon...">#}
+{#    #}
+{#    #}
+{#        <label for="age">Godine:</label>#}
+{#        <br><span class = "greska" id = "godineGreska"></span>#}
+{#        <input type="number" id="age" min="18" max="50" required placeholder="Unesite broj godina...">#}
+{#        #}
+{#    #}
+{#        <label for="city">Grad:</label>#}
+{#        <br><span class = "greska" id = "gradGreska"></span>#}
+{#        <input type="text" id="city" required placeholder = "Unesite grad u kom se sala nalazi...">#}
+{#    #}
+{#        <label for="address">Adresa:</label>#}
+{#        <br><span class = "greska" id = "adresaGreska"></span>#}
+{#        <input type="text" id = "address" required placeholder="Unesite adresu na kojoj se sala nalazi...">#}
+{#    #}
+
+      </form>
+  </div>
+
+  
+
+    
+
+  
+
+  </body>
+  <footer>
+    <p>&nbsp</p>
+  </footer>
+</html>

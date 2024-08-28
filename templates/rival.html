@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <style>
+    button[type="submit"] {
+    display: block;
+    padding: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color:#5aa608c1;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+  }
+
+  </style>
+    <head>
+
+        <title>Početna stranica igrača</title>
+        <link rel="stylesheet" href="../static/css/template_style.css">
+        <link rel="stylesheet" href="../static/css/timovi_traze.css">
+        <script src="../static/java/pocetna_stranica_igraca.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    </head>
+    <body style="
+         background: url('../static/img/balon1.avif') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+  width: 100%;
+  height: 100vh;
+
+                 ">
+
+
+
+
+        <div class="header">
+          <div class="logo">
+            <img src="../static/img/soccer-ball-icon.png" alt="soccer ball icon">
+              <ul>
+                  <li style="display: inline-block"><a href="{% url "profil.html" %}">{{tim.naziv}}</a></li>
+                  <li style="display: inline-block" ><a href="{% url "logout_req" %}">Log Out</a></li>
+              </ul>
+          </div>
+        </div>
+	<main>
+        <section id="teams">
+            <h2 style="text-align: center">Slobodni protivnici</h2>
+            {% for r in rivali %}
+                <div class="team">
+                    <h4>{{ r.naziv }} ({{ r.mesto.mesto }})</h4>
+                    <p>Kapiten: {{ r.idk_c_field }}</p>
+                    <p id="salji6" style="display: none; visibility: hidden">{{ r.idk_c_field }}, {{ r.idt }}, {{ request.user }}, {{ tim.idt }}, {{ terminPolje }}</p> {#  menjati sta se salje #}
+                    <form id="f3" method="post" action="{% url "organizujMec" %}" >
+                        {% csrf_token %}
+                        {{hiddenforma.skriveno3}}
+                        <button class="request-btn" onclick="posaljiProtivniku(document.getElementById('salji6').innerHTML)">Izazovi na utakmicu</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </section>
+      </main>
+  </body>
+
+  <footer>
+	<p>&nbsp</p>
+  </footer>
+
+</html>

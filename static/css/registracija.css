@@ -1,0 +1,121 @@
+form {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+     justify-content: center;
+     align-items: center;
+    align-self: center;
+    width: 50%;
+    background-color: #407d0e;
+    color: #ffffff;
+    padding: 20px;
+     background-image: -webkit-linear-gradient(top, #e8e8e8, #b3b3b3);
+    background-image: -moz-linear-gradient(top,#e8e8e8, #b3b3b3);
+    background-image: -ms-linear-gradient(top, #e8e8e8, #b3b3b3);
+    background-image: -o-linear-gradient(top, #e8e8e8, #b3b3b3);
+    background-image: linear-gradient(to bottom, #e8e8e8, #b3b3b3);
+    -webkit-border-radius: 29px;
+    -moz-border-radius: 29px;
+    border-radius: 29px;
+    -webkit-box-shadow: 0px 0px 30px #2c4a15;
+    -moz-box-shadow: 0px 0px 30px #2c4a15;
+    box-shadow: 0px 0px 30px #2c4a15;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+  }
+  
+  form h2 {
+    margin-top: 0;
+       color: #407d0e;
+  text-shadow: 0px 0px 0 rgb(255, 255, 255),
+                 1px 1px 0 rgb(128, 128, 128),
+                 2px 2px  0 rgb(75, 75, 75),
+                 3px 3px 2px rgba(58, 58, 58, 0),
+                 3px 3px 1px rgba(0,0,0,0.5),
+                 0px 0px 2px rgba(0,0,0,.2);
+  }
+  
+  form label {
+    display: block;
+    font-weight: bold;
+    margin-top: 16px;
+      color: #407d0e;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+
+  }
+  
+  form input,
+  form select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  
+  form .lozinka1 {
+    font-size: 12px;
+    margin-top: -8px;
+    margin-bottom: 16px;
+    color: #777;
+  }
+  
+  form button[type="submit"] {
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+      background: #407d0e;
+     background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+     background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+     background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+     background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+     background-image: linear-gradient(to bottom, #407d0e, #2c4a15);
+     -webkit-border-radius: 29px;
+     -moz-border-radius: 29px;
+     border-radius: 29px;
+     -webkit-box-shadow: 0px 0px 30px #2c4a15;
+     -moz-box-shadow: 0px 0px 30px #2c4a15;
+     box-shadow: 0px 0px 30px #2c4a15;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+  }
+  
+
+  
+  .greska {
+    color: red;
+  }
+
+
+  ul {
+    display: none;
+      visibility: hidden;
+    }
+
+  .helptext{
+      display: none;
+      visibility: hidden;
+  }
+
+
+
+  li {
+    margin: 0 10px;
+      color: #407d0e;
+       text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+    }
+
+
+
+  a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
+    }
+  .container {
+      width: 660px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;}
+ 

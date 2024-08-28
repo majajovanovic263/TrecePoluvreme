@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <style>
+    button[type="submit"] {
+    display: block;
+    margin: 2em auto;
+    padding: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color:#5aa608c1;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+
+  </style>
+  <head>
+
+    <title>Zaboravljena lozinka</title>
+
+    <link rel="stylesheet" href="../static/css/template_style.css">
+    <link rel="stylesheet" href="../static/css/zaboravljena_lozinka.css">
+
+
+    <div class="header">
+      <div class="logo">
+        <img src="../static/img/soccer-ball-icon.png" alt="soccer ball icon">
+        Treće Poluvreme
+      </div>
+    </div>
+
+  </head>
+  <body style="
+         background: url('../static/img/balon1.avif') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+  width: 100%;
+  height: 100vh;
+
+                 ">
+
+
+    <section class="form">
+    <div id="main" class="row">
+        <div class="col-sm-12">
+            <form method="post" action={% url  "pocetna_stranica.html"%}>
+                      {% csrf_token %}
+
+                <ol>
+                    <li>Pošaljite mejl na adresu support@trecepoluvreme.com </li>
+                    <li>Sa temom "Promena Lozinke" </li>
+                    <li>Mejl treba da sadrži Vaš username, ime i prezime</li>
+                    <li>Biće Vam poslata privremena šifra za logovanje</li>
+                    <li>Iskoristite je, ulogujte se i podesite novu šifru</li>
+                    <li>Klikom sa glavne stranice na Vaše ime ulazite na formu za promenu podataka</li>
+                    <li>Tu stavljate novu šifru</li>
+                    <br>
+                </ol>
+                <button id="backButton" class="submit-button green-button"  style="align-self: center">Nazad</button>
+
+{#                <script type="text/javascript">#}
+{#                    document.getElementById("backButton").onclick = function () {#}
+{#                        location.href = "pocetna_stranica.html";#}
+{#                    };#}
+{#                </script>#}
+          </form>
+
+
+
+        </div>
+    </div>
+    </section>
+
+
+
+
+
+  </body>
+  <footer>
+    <p>&nbsp</p>
+  </footer>
+</html>

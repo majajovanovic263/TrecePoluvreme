@@ -1,0 +1,119 @@
+{%  load static %}
+<!DOCTYPE html>
+<html>
+  <style>
+    button[type="submit"] {
+    display: block;
+    padding: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color:#5aa608c1;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+        margin-bottom: 10px;
+    background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);
+    -webkit-border-radius: 29px;
+    -moz-border-radius: 29px;
+    border-radius: 29px;
+    -webkit-box-shadow: 0px 0px 30px #2c4a15;
+    -moz-box-shadow: 0px 0px 30px #2c4a15;
+    box-shadow: 0px 0px 30px #2c4a15;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+  }
+
+  </style>
+  <head>
+
+    <title>Početna stranica</title>
+
+    <link rel="stylesheet" href="../static/css/template_style.css">
+    <link rel="stylesheet" href="../static/css/pocetna_stranica_vlasnika_prostora.css">
+    <script src="../static/java/pocetna_stranica_igraca.js"></script>
+          <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  </head>
+  <body style="
+         background: url('../static/img/balon1.avif') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+  width: 100%;
+  height: 100vh;
+
+                 ">
+
+
+    <div class="header">
+      <div class="logo">
+        <img src="../static/img/soccer-ball-icon.png" alt="soccer ball icon">
+        <ul>
+          <li style="display: inline-block"><a href="{% url "profil.html" %}">{{request.user.username}}</a></li>
+            <li style="display: inline-block"><a href="{% url "logout_req" %}">Log Out</a></li>
+      </ul>
+      </div>
+    </div>
+
+    <main>
+        <div class="container">
+          <div class="profile">
+            <img
+              src="../static/img/placeholder_photo.jpg"
+              alt="Profile picture"
+            />
+            <div>
+              <h2>{{request.user.ime}} {{request.user.prezime}}</h2>
+              <p>Email: {{request.user.email}} Kontakt: {{request.user.telefon}}</p>
+            </div>
+          </div>
+          <div class="content">
+            <section class="places">
+              {% for q in que %}
+{#                  {% if forloop.counter0|divisibleby:5 and forloop.counter0 != 0 %}{{ value|linebreaks }}#}
+{#{% endif %}#}
+              <div class="place salabackground">
+
+                <h4>{{ q.adresa }}</h4>
+                <p class="paragraphtext">Mesto: {{ q.mesto.mesto}}</p>
+
+                <p class="paragraphtext">Cena po satu: {{ q.cenovnik }}rsd</p>
+                <p id="salaSkriveniID" style="display: none; visibility: hidden">{{ q.ids }}</p>
+                <form id="f4" method="post" action="{% url "salaTermini" %}" >
+                                     {% csrf_token %}
+                                        {{hiddenforma4.skriveno4}}
+                  <button class="request-btn kalendarbutton salaID"  onclick="posalji4({{ q.ids }})" style="justify-content: center; display: flex; align-content: center">Kalendar sale</button>
+                </form>
+              </div>
+                {% endfor %}
+            </section>
+          </div>
+          <div>
+            <section class="container" style="align-content: center; display: flex; justify-content: center;">
+
+                <form id="forma" method="POST" action={% url "sala_req" %}>
+                     <label3>Dodaj novi prostor</label3>
+                    {% csrf_token %}
+                    {{ forma.as_p }}
+                    <button type ="submit">Registruj salu</button>
+                </form>
+
+            </section>
+
+
+          </div>
+        </div>
+      </main>
+
+
+
+
+
+  </body>
+  <footer>
+    <p>&nbsp</p>
+  </footer>

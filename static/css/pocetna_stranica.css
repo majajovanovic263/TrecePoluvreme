@@ -1,0 +1,100 @@
+
+
+  h1 {
+    text-align: center;
+    color: #407d0e;
+    font-weight: bold;
+     text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+    }
+
+
+
+  h2 {
+    font-weight: bold;
+    text-align: center;
+    color: #407d0e;
+     text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+    }
+ 
+ 
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+
+
+  li {
+    margin: 0 10px;
+    }
+
+
+
+  a {
+    color: #2c4a15;
+    text-decoration: none;
+    font-size: 14px;
+     text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+
+    }
+
+
+
+  form {
+    margin: 0 auto;
+    width: 40%;
+    padding: 20px;
+    box-shadow: 2px 2px #284925;
+    background: #407d0e;
+    background-image: -webkit-linear-gradient(top, #e8e8e8, #b3b3b3);
+    background-image: -moz-linear-gradient(top,#e8e8e8, #b3b3b3);
+    background-image: -ms-linear-gradient(top, #e8e8e8, #b3b3b3);
+    background-image: -o-linear-gradient(top, #e8e8e8, #b3b3b3);
+    background-image: linear-gradient(to bottom, #e8e8e8, #b3b3b3);
+    -webkit-border-radius: 29px;
+    -moz-border-radius: 29px;
+    border-radius: 29px;
+    -webkit-box-shadow: 0px 0px 5px #2c4a15;
+    -moz-box-shadow: 0px 0px 5px #345e;
+    }
+
+
+
+  input[type="text"], input[type="password"] {
+    width: 95%;
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    margin: 6px 0;
+    }
+
+
+  input[type="submit"] {
+    border: none;
+    background: #407d0e;
+    background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);
+    -webkit-border-radius: 29px;
+    -moz-border-radius: 29px;
+    border-radius: 29px;
+    -webkit-box-shadow: 0px 0px 30px #2c4a15;
+    -moz-box-shadow: 0px 0px 30px #2c4a15;
+    box-shadow: 0px 0px 30px #2c4a15;
+    display: block;
+    margin: 2em auto;
+    padding: 1em;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+    }
+
+  
+
+

@@ -1,0 +1,679 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <style>
+    button[type="submit"] {
+    background: #407d0e;
+                    background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);
+                    -webkit-border-radius: 29px;
+                    -moz-border-radius: 29px;
+                    border-radius: 29px;
+                    -webkit-box-shadow: 0px 0px 30px #2c4a15;
+                    -moz-box-shadow: 0px 0px 30px #2c4a15;
+                    box-shadow: 0px 0px 30px #2c4a15;
+        text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+
+
+  }
+
+
+  </style>
+    <head>
+
+        <title>Početna stranica igrača</title>
+
+        <link rel="stylesheet" href="../static/css/template_style.css">
+        <link rel="stylesheet" href="../static/css/pocetna_stranica_igraca.css">
+        <script src="../static/java/pocetna_stranica_igraca.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    </head>
+    <body onload="kale()"
+         style="
+         background: url('../static/img/balon1.avif') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+  width: 100%;
+  height: 100vh;
+
+                 ">
+
+
+
+
+
+
+
+        <div class="header">
+          <div class="logo">
+            <img src="../static/img/soccer-ball-icon.png" alt="soccer ball icon">
+              <ul>
+                  <li style="display:inline-block"><a href="{% url "profil.html" %}">{{request.user.username}}</a></li>
+                  <li style="display:inline-block"><a href="{% url "logout_req" %}">Log Out</a></li>
+                  <li style="display: inline-block">
+    <audio controls autoplay loop src="../static/video/DEVITO%20-%20SVEMIR%20(FEAT.%20INAS).mp3">
+    </audio>
+    </li>
+              </ul>
+
+
+          </div>
+            <ul>
+                  <li style="display:inline-block"><a onclick="openPopup2()">Poslate poruke</a></li>
+                  <li style="display:inline-block"><a onclick="openPopup3()">Primljene poruke</a></li>
+              </ul>
+        </div>
+
+	<main>
+		<div class="container">
+			<div class="player-info">
+
+				<div class="profile-picture" style="background-image: url(../static/img/dres.png);
+				  background-size:200px 200px;
+                  background-repeat:   no-repeat;
+                  background-position: center center;  " >
+					{#<img src="../static/img/dres.png">#}
+                    <div style="margin-top: 20%">
+                        <h2>{{request.user.prezime}} </h2>
+                        <h4 style="font-size: 45px; margin-top: 10px"> {{broj}} </h4>
+                    </div>
+				</div>
+
+				<div class="player-details">
+					<h2>{{request.user.ime}}</h2>
+                    <p>Godište: {{request.user.godiste}}.</p>
+                    <p>Lokacija: {{request.user.mesto.mesto}},Srbija</p>
+					<p>Pozicija: {{poza}}</p>
+                    <p id="hid">{{kalendar}}</p>
+				</div>
+				<div class="team-buttons">
+                    <button class="team-btn" onclick="openPopup()" style="background: #407d0e;
+                    background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);
+                    -webkit-border-radius: 29px;
+                    -moz-border-radius: 29px;
+                    border-radius: 29px;
+                    -webkit-box-shadow: 0px 0px 30px #2c4a15;
+                    -moz-box-shadow: 0px 0px 30px #2c4a15;
+                    box-shadow: 0px 0px 30px #2c4a15 ">Kapiten</button>
+                    <div id="myPopup" class="popup">
+                        <div class="popup-content">
+                           <span class="close" onclick="closePopup()">&times;</span>
+                                <ul>
+                                    {% for tim in timici %}
+                                    {% if tim.idk_c_field.username == request.user.username %}
+                                    <li> {{ tim.naziv }} ({{ tim.mesto.mesto }}) </li>
+                                    <li><form id="f2" method="post" action="{% url "presek" %}">
+                                     {% csrf_token %}
+                                        {{hiddenforma2.skriveno2}}
+                                    <button type="submit" onclick = "posalji2({{tim.idt}})" > Timski meni </button >
+                                    </form>
+                                    </li>
+                                    {% endif %}
+                                {% endfor %}
+                                </ul>
+                         </div>
+                        </div>
+
+                 </div>
+            	<div class="team-buttons">
+                    <button class="team-btn newbtn" onclick="openPopup1()" style="background: #407d0e;
+                    background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+                    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);
+                    -webkit-border-radius: 29px;
+                    -moz-border-radius: 29px;
+                    border-radius: 29px;
+                    -webkit-box-shadow: 0px 0px 30px #2c4a15;
+                    -moz-box-shadow: 0px 0px 30px #2c4a15;
+                    box-shadow: 0px 0px 30px #2c4a15">Timovi</button>
+                      <div id="myPopup1" class="popup">
+                          <div class="popup-content">
+                           <span class="close" onclick="closePopup1()">&times;</span>
+                                <ul>
+                                    {% for tim in mojTim %}
+                                        <li>
+                                            {{ tim.naziv }} ({{ tim.mesto.mesto }})<br>
+                                         <form id="f9" method="post" action={% url "uplatiTimu" %}>
+                                                   {%  csrf_token %}
+                                                   {{ hiddenforma9.skriveno9 }}
+                                                    <input id="upl-{{ forloop.counter }}" type="number" min="1" value="0"><br>
+                                                    <button type="submit" onclick="posalji9({{ tim.idt }},document.getElementById('upl-{{ forloop.counter }}').value)">Uplati na račun tima</button><br>
+                                                </form>
+                                            {% for tek in tekmice %}
+                                                {% if tek.idt1 == tim %}
+                                                    {% if tek.idt2 == tim %}
+                                                        Trening u {{ tek.dan }} u {{ tek.vreme.hour }}:00h<br>
+                                                        {{ tek.ids.adresa }}({{ tek.ids.mesto.mesto }})<br>
+                                                        {{ tek.ids.cenovnik }}rsd<br><br>
+                                                    {% else %}
+                                                        Utakmica u {{ tek.dan }} u {{ tek.vreme.hour }}:00h<br>
+                                                        {{ tek.ids.adresa }}({{ tek.ids.mesto.mesto }})<br>
+                                                        {{ tek.idt1.naziv }} vs {{ tek.idt2.naziv }}<br>
+                                                        {{ tek.ids.cenovnik }}rsd<br><br>
+                                                    {% endif %}
+                                                {% else %}
+                                                     {% if tek.idt2 == tim %}
+                                                        Utakmica u {{ tek.dan }} u {{ tek.vreme.hour }}:00h<br>
+                                                        {{ tek.ids.adresa }}({{ tek.ids.mesto.mesto }})<br>
+                                                        {{ tek.idt1.naziv }} vs {{ tek.idt2.naziv }}<br>
+                                                        {{ tek.ids.cenovnik }}rsd<br><br>
+                                                     {% endif %}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                         </div>
+                        </div>
+                 </div>
+
+                <div class="team-buttons">
+                      <div id="myPopupPorukePoslate" class="popup">
+                          <div class="popup-content">
+                           <span class="close" onclick="closePopup2()">&times;</span>
+
+                              <ul>
+                                   <h1> Poslate poruke</h1>
+                                    {% for pos in poslate %}
+                                        <li  class = "poruke">
+                                            {% if pos.tip is 1 %}
+                                                {{ pos.idi2.ime }} {{ pos.idi2.prezime }}  :
+                                                Pozvali ste igrača {{ pos.idi2.username }} da se pridruži ekipi {{ pos.idt1.naziv }}
+                                            {% endif %}
+                                            {% if pos.tip is 2 %}
+                                                {{ pos.idi2.ime }} {{ pos.idi2.prezime }}  :
+                                                Pozvali ste tim {{ pos.idt2.naziv }} da igra protiv ekipe {{ pos.idt1.naziv }}
+                                            {% endif %}
+
+                                        </li>
+                                    {% endfor %}
+                                  {% for pos in primljene %}
+                                      <li class="poruke">
+                                        {% if pos.tip is 3 %}
+                                            {{ pos.idi2.ime }} {{ pos.idi2.prezime }}  :
+                                                Pitali ste kapitena tima {{ pos.idt1.naziv }} da igrate za njih
+                                            {% endif %}
+                                      </li>
+                                  {% endfor %}
+
+                              </ul>
+                         </div>
+                        </div>
+                 </div>
+
+                <div class="team-buttons">
+                      <div id="myPopupPorukePrimljene" class="popup">
+                          <div class="popup-content">
+                           <span class="close" onclick="closePopup3()">&times;</span>
+                                <ul>
+                                    <h1>Primljene poruke</h1>
+                                    {% for pri in primljene %}
+                                        <li class="poruke">
+                                            {% if pri.tip is 1 %}
+                                                {{ pri.idi1.ime }} {{ pri.idi1.prezime }} :
+                                                {{ pri.idi1.username }} Vas poziva da se pridruzite ekipi {{ pri.idt1.naziv }}
+                                                <div style="display: flex;justify-content: center;align-content: center">
+                                                <form id="f7" method="post" action={% url "accepted1" %} >
+                                                   {%  csrf_token %}
+                                                   {{ hiddenforma7.skriveno7 }}
+                                                    <button type="submit" onclick="posalji7({{ pri.idp }})" style="margin-right:20px">Prihvati</button>
+                                                </form>
+                                                 <form id="f8" method="post" action={% url "denied" %}>
+                                                   {%  csrf_token %}
+                                                   {{ hiddenforma8.skriveno8 }}
+                                                    <button type="submit" onclick="posalji8({{ pri.idp }})" style="margin-left:20px">Odbij</button>
+                                                </form>
+                                                </div>
+
+
+                                            {% endif %}
+                                            {% if pri.tip is 2 %}
+                                                {{ pri.idi1.ime }} {{ pri.idi1.prezime }} <br>
+                                                {{ pri.idi1.username }} Vas poziva da tim {{ pri.idt1.naziv }} igra utakmicu protiv Vaše ekipe {{ pri.idt2.naziv }}
+                                                <form id="f7" method="post" action={% url "accepted2" %}>
+                                                   {%  csrf_token %}
+                                                   {{ hiddenforma7.skriveno7 }}
+                                                    <button type="submit" onclick="posalji7({{ pri.idp }})">Prihvati</button>
+                                                </form>
+                                                 <form id="f8" method="post" action={% url "denied" %}>
+                                                   {%  csrf_token %}
+                                                   {{ hiddenforma8.skriveno8 }}
+                                                    <button type="submit" onclick="posalji8({{ pri.idp }})">Odbij</button>
+                                                </form>
+                                            {% endif %}
+                                            {% if pri.tip is 5 %}
+                                            Zahtev odbijen, korisnik ne postoji
+                                                 <form id="f8" method="post" action={% url "noted2" %}>
+                                                   {%  csrf_token %}
+                                                   {{ hiddenforma8.skriveno8 }}
+                                                    <button type="submit" onclick="posalji8({{ pri.idp }})">Ukloni</button>
+                                                </form>
+                                            {% endif %}
+                                            {% if pri.tip is 6 %}
+                                            Zahtev odbijen, nemate dovoljno sredstava na računu
+                                                 <form id="f8" method="post" action={% url "noted2" %}>
+                                                   {%  csrf_token %}
+                                                   {{ hiddenforma8.skriveno8 }}
+                                                    <button type="submit" onclick="posalji8({{ pri.idp }})">Ukloni</button>
+                                                </form>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                    {% for pri in poslate %}
+                                        <li>
+                                        {% if pri.tip is 3 %}
+                                            {{ pri.idi2.ime }} {{ pri.idi2.prezime }} <br>
+                                            {{ pri.idi2.username }} Vas pita da se pridruzi timu {{ pri.idt1.naziv }}
+                                            <form id="f7" method="post" action={% url "accepted1" %}>
+                                                   {%  csrf_token %}
+                                                   {{ hiddenforma7.skriveno7 }}
+                                                    <button type="submit" onclick="posalji7({{ pri.idp }})">Prihvati</button>
+                                                </form>
+                                                 <form id="f8" method="post" action={% url "denied" %}>
+                                                   {%  csrf_token %}
+                                                   {{ hiddenforma8.skriveno8 }}
+                                                    <button type="submit" onclick="posalji8({{ pri.idp }})">Odbij</button>
+                                                </form>
+                                            {% endif %}
+                                        </li>
+
+                                    {% endfor %}
+                                {% for pri in odSale %}
+                                        <li>
+                                        {% if pri.tip is 4 %}
+                                            {{ pri.idk1.ime }} {{ pri.idk1.prezime }} <br>
+                                            {{ pri.idk1.username }} Vas obaveštava da je utakmica zakazana za {{ pri.termin }}:00h u sali {{ pri.ids.adresa }}({{ pri.ids.mesto.mesto }})<br>
+                                            Cena termina je {{ pri.ids.cenovnik }}rsd
+                                                 <form id="f8" method="post" action={% url "noted" %}>
+                                                   {%  csrf_token %}
+                                                   {{ hiddenforma8.skriveno8 }}
+                                                    <button type="submit" onclick="posalji8({{ pri.idp }})">Ukloni</button>
+                                                </form>
+                                            {% endif %}
+                                        </li>
+
+                                    {% endfor %}
+
+                                </ul>
+                         </div>
+                        </div>
+                 </div>
+                     </div>
+        <div class = "formica">
+            <form id="forma" method="POST" style="width: 100%; display:flex;
+     justify-content: center;
+     align-items: center;
+    margin-top:50px;" action={% url "team_req" %} >
+                <label3>Kreiraj novi tim</label3>
+                {% csrf_token %}
+                {{ forma.as_p }}
+                <button type="submit" style="align-self: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+        font-size: 18px;
+    text-align: center;
+    min-width: 50px;
+    min-height: 15px;
+    background: #407d0e;
+    background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);
+    -webkit-border-radius: 29px;
+    -moz-border-radius: 29px;
+    border-radius: 29px;
+    -webkit-box-shadow: 0px 0px 30px #2c4a15;
+    -moz-box-shadow: 0px 0px 30px #2c4a15;
+    box-shadow: 0px 0px 30px #2c4a15">Kreiraj Tim</button>
+
+            </form>
+
+{#                <div style="width: 3%">&nbsp;</div>#}
+        <div class = "centered-button" style="width: 100%; display:flex;
+     justify-content: center;
+     align-items: center;
+    margin-left: 25px;
+    margin-top: 25px">
+                    <a href={% url "timovi_traze_igraca.html" %} >Pronađi novi tim</a>
+                </div>
+
+        </div>
+
+
+            <div class="week-calendar">
+				<table id="table">
+					<thead>
+						<tr>
+							<th>Termini</th>
+							<th>Ponedeljak</th>
+							<th>Utorak</th>
+							<th>Sreda</th>
+							<th>Četvrtak</th>
+							<th>Petak</th>
+                            <th>Subota</th>
+							<th>Nedelja</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">08:00-09:00</td>
+							<td class="unavailable" id="PO:8" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:8" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:8" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:8" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:8" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:8" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:8" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">09:00-10:00</td>
+							<td class="unavailable" id="PO:9" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:9" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:9" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:9" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:9" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:9" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:9" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">10:00-11:00</td>
+							<td class="unavailable" id="PO:10" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:10" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:10" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:10" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:10" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:10" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:10" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">11:00-12:00</td>
+							<td class="unavailable" id="PO:11" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:11" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:11" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:11" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:11" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:11" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:11" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">12:00-13:00</td>
+							<td class="unavailable" id="PO:12" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:12" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:12" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:12" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:12" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:12" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:12" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">13:00-14:00</td>
+							<td class="unavailable" id="PO:13" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:13" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:13" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:13" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:13" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:13" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:13" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">14:00-15:00</td>
+							<td class="unavailable" id="PO:14" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:14" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:14" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:14" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:14" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:14" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:14" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">15:00-16:00</td>
+							<td class="unavailable" id="PO:15" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:15" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:15" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:15" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:15" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:15" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:15" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">16:00-17:00</td>
+							<td class="unavailable" id="PO:16" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:16" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:16" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:16" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:16" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:16" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:16" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style = "background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">17:00-18:00</td>
+							<td class="unavailable" id="PO:17" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:17" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:17" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:17" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:17" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:17" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:17" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">18:00-19:00</td>
+							<td class="unavailable" id="PO:18" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:18" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:18" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:18" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:18" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:18" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:18" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style = "background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">19:00-20:00</td>
+							<td class="unavailable" id="PO:19" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:19" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:19" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:19" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:19" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:19" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:19" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style = "background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">20:00-21:00</td>
+							<td class="unavailable" id="PO:20" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:20" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:20" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:20" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:20" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:20" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:20" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style="background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">21:00-22:00</td>
+							<td class="unavailable" id="PO:21" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:21" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:21" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:21" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:21" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:21" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:21" onclick="toggleAvailability(this)"></td>
+						</tr>
+                        <tr>
+
+							<td style = "background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);">22:00-23:00</td>
+							<td class="unavailable" id="PO:22" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="UT:22" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SR:22" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="CT:22" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="PT:22" onclick="toggleAvailability(this)"></td>
+                            <td class="unavailable" id="SU:22" onclick="toggleAvailability(this)"></td>
+							<td class="unavailable" id="NE:22" onclick="toggleAvailability(this)"></td>
+						</tr>
+            </tbody>
+           </table>
+
+          </div>
+         <div class="centered-button" style="width: 100%;display: flex;
+     justify-content: center;
+     align-items: center;">
+
+               <form id="f1" method="post" action={% url "sendter" %}>
+                   {%  csrf_token %}
+                   {{ hiddenforma.skriveno }}
+                   <button id="b1" type="submit" onclick="posalji()" >Pošalji kalendar </button>
+
+                </form>
+            </div>
+
+        </div>
+
+
+
+
+      <div>
+            <section class="container">
+            <div class="news-list">
+			<div class="news-item">
+			  <img src="../static/img/news1.jpg" alt="News 1">
+			  <div class="news-content">
+
+				<p>Liverpool FC has reached an agreement for the transfer of 24-year-old Alexis Mac Allister from Brighton & Hove Albion on a long-term deal for an undisclosed     fee...</p>
+				<a href="https://www.liverpoolfc.com/news/liverpool-complete-signing-alexis-mac-allister" target="_blank">Pogledaj vest</a>
+			  </div>
+			</div>
+			<div class="news-item">
+			  <img src="../static/img/news2.jpg" alt="News 2">
+			  <div class="news-content">
+
+				<p>Man Utd 'close in' on first signing as Mason Mount transfer takes a backseat. Man Utd are set to ramp up their summer transfer window business over the coming weeks.</p>
+				<a href="https://www.express.co.uk/sport/football/1778596/Man-Utd-Mason-Mount-transfer" target="_blank">Pogledaj vest</a>
+			  </div>
+			</div>
+			<div class="news-item">
+				<img src="../static/img/news3.jpg" alt="News 1">
+				<div class="news-content">
+
+				  <p>UEFA's Technical Observer panel have named Napoli's Khvicha Kvaratskhelia as the 2022/23 UEFA Champions League Young Player of the Season... </p>
+				  <a href="https://www.uefa.com/uefachampionsleague/" target="_blank">Pogledaj vest</a>
+				</div>
+			  </div>
+			  <div class="news-item">
+				<img src="../static/img/news4.jpg" alt="News 1">
+				<div class="news-content">
+
+				  <p>Manchester City win third successive English Premier League title. City were confirmed as champions for the fifth time in six seasons after rivals Arsenal lost 1-0 to Nottingham Forest.</p>
+				  <a href="https://www.aljazeera.com/news/2023/5/20/manchester-city-win-third-successive-premier-league-title" target="_blank">Pogledaj vest</a>
+				</div>
+			  </div>
+			  <div class="news-item">
+				<img src="../static/img/news5.jpg" alt="News 1">
+				<div class="news-content">
+
+				  <p>Karim Benzema is leaving Real Madrid for Saudi Arabia. Why? And what will the club do now? With added reporting from Julien Laurens and Rodrigo Faez.</p>
+				  <a href="https://www.espn.com/soccer/story/_/id/37806300/why-did-benzema-leave-real-madrid-saudi-arabia" target="_blank">Pogledaj vest</a>
+				</div>
+			  </div>
+
+			<!-- jos vesti -->
+		  </div>
+        </section>
+
+
+      </div>
+    </main>
+  </body>
+
+  <footer>
+	<p>&nbsp</p>
+  </footer>
+
+</html>

@@ -1,0 +1,74 @@
+fudbal python pacage:
+    urls.py:
+        kompletan
+    models.py:
+        kompletan
+    apps.py:
+        kompletan
+    migrations python pacage:
+        kompletan
+    forms.py:
+        kompletan
+    views.py:
+        kompletan
+djangoPSI python pacage:
+    settings.py:
+        kompletan
+    urls.py:
+        kompletan
+static direktorium:
+    css direktorium:
+        pocetna_stranica.css:
+            kompletant
+        pocetna_stranica_igraca.css:
+            kompletant
+        pocetna_stranica_vlasnika_prostora.css:
+            kompletant
+        promena_lozinke.css:
+            kompletan
+        registracija.css:
+            komletan
+        template_style.css:
+            kompletan
+        timovi_traze.css:
+            kompletan
+        zaboravljena_lozika.css:
+            kompletan
+    java direktorium:
+        pocetna_stranica.js:
+            kompletan
+        pocetna_stranica_igraca.js:
+            kompletan
+        pocetna_stranica_vlasnika_prostora.js:
+            kompletan
+templates:
+    kalendar.html:
+        kompletan
+    pocetna_stranica.html:
+        kompletan
+    pocetna_stranica_igraca.html:
+        kompletan
+    pocetna_stranica_clasnika_prostora.html:
+        kompletan
+    profil.html:
+        kompletan
+    promena_lozine.html:
+        kompletan
+    registracija_igraca.html:
+        kompletan
+    registracija_vlasnika_prostora.html:
+        kompletan
+    rival.html:
+        kompletan
+    sale_termini.html:
+        kompletan
+    test.html:
+        kompletan
+    timovi_traze_igraca.html:
+        kompletan
+    zaboavljena_lozink.html:
+        kompletan
+erwin-wb8.0-mysql:
+    kompletan
+UML-star:
+    setup

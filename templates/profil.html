@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>NASLOV</title>
+
+    <link rel="stylesheet" href="../static/css/template_style.css">
+    <link rel="stylesheet" href="../static/css/registracija.css">
+
+
+
+  <div class="header">
+    <div class="logo">
+      <img src="../static/img/soccer-ball-icon.png" alt="soccer ball icon">
+      {{request.user.username}}
+    </div>
+  </div>
+
+  </head>
+  <body style="
+         background: url('../static/img/balon1.avif') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+  width: 100%;
+  height: 100vh;
+
+                 ">
+
+  <div class = "container">
+      <form method = "POST" action = {% url "profilchange_req" %}>
+      {% csrf_token %}
+        {{ forma.as_p }}
+          <button type="submit">Ažuriraj</button>
+          </form>
+  </div>
+
+  </body>
+
+</html>

@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <style>
+    button[type="submit"] {
+    display: block;
+    padding: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color:#5aa608c1;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+  }
+
+  </style>
+    <head>
+
+        <title>Početna stranica igrača</title>
+        <link rel="stylesheet" href="../static/css/template_style.css">
+        <link rel="stylesheet" href="../static/css/timovi_traze.css">
+        <script src="../static/java/pocetna_stranica_igraca.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    </head>
+    <body style="
+         background: url('../static/img/balon1.avif') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+  width: 100%;
+  height: 100vh;
+
+                 ">
+
+
+
+        <div class="header">
+          <div class="logo">
+            <img src="../static/img/soccer-ball-icon.png" alt="soccer ball icon">
+              <ul>
+                  <li><a style="text-align: center">{{poruka.idt1.naziv}}-{{ poruka.idt2.naziv }}</a></li>
+                  <li><a style="text-align: center">{{ poruka.idi1 }}-{{ poruka.idi2 }}</a></li>
+              </ul>
+          </div>
+        </div>
+	<main>
+        <section id="teams">
+            <h2 style="text-align: center">Slobodne sale</h2>
+            {% for sst in saleSaTerminom %}
+                <div class="team">
+                    <h4>{{ sst.adresa }} ({{ sst.mesto.mesto }})</h4>
+                    <p>Cena: {{ sst.cenovnik }}</p>
+                    <p>Vlasnik: {{ sst.idk.ime }} {{ sst.idk.prezime }}</p>
+                    <p id="salji6-{{ forloop.counter }}" style="display: none; visibility: hidden">{{ sst.ids }}, {{ poruka.idt1.idt }}, {{ poruka.termin }}, {{ poruka.idt2.idt }}, {{ poruka.idi1.username }}, {{ poruka.idi2.username }}, {{ poruka.idp }}</p>
+                    <form id="f6" method="post" action="{% url "duoZakazan" %}" style="justify-content: center; display: flex; align-content: center">
+                        {% csrf_token %}
+                        {{hiddenforma6.skriveno6}}
+                        <button class="request-btn" type="submit" onclick="posalji6(document.getElementById('salji6-{{ forloop.counter }}').innerText)">Rezervisi termin</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </section>
+      </main>
+  </body>
+
+  <footer>
+	<p>&nbsp</p>
+  </footer>
+
+</html>

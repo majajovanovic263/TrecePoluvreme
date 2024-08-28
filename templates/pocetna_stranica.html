@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <style>
+    button[type="submit"] {
+    display: block;
+    margin: 2em auto;
+    padding: 1em;
+    border: none;
+    color: #fff;
+    font-size: 1.2em;
+    cursor: pointer;
+        background: #407d0e;
+    background-image: -webkit-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -moz-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -ms-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: -o-linear-gradient(top, #407d0e, #2c4a15);
+    background-image: linear-gradient(to bottom, #407d0e, #2c4a15);
+    -webkit-border-radius: 29px;
+    -moz-border-radius: 29px;
+    border-radius: 29px;
+    -webkit-box-shadow: 0px 0px 10px #2c4a15;
+    -moz-box-shadow: 0px 0px 10px #2c4a15;
+    box-shadow: 0px 0px 10px #2c4a15;
+  }
+
+  </style>
+  <head>
+
+    <title>Treće Poluvreme</title>
+
+    <link rel="stylesheet" href="../static/css/template_style.css">
+    <link rel="stylesheet" href="../static/css/pocetna_stranica.css">
+    <script src="../static/java/pocetna_stranica.js"></script>
+
+  </head>
+  <body style="  background: url('../static/img/balon1.avif') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+  width: 100%;
+  height: 100vh;
+        ">
+
+
+
+
+ 
+
+    <div class="header">
+      <div class="logo">
+        <img src="../static/img/soccer-ball-icon.png" alt="soccer ball icon">
+        Treće Poluvreme
+      </div>
+    </div>
+
+
+
+
+      <form method = "POST" action = {% url "login_req" %} style="margin-top:50px">
+        {% csrf_token %}
+
+    <h2>Uloguj se ako imaš nalog</h2>
+      <label for="username"><img src="../static/img/user_logo.png" alt="username icon" width="25" height="25"></label>
+      <input type="text" id="username" name="username" placeholder="Username"><br><br>
+      <label for="password"> <img src="../static/img/password_logo.png" alt="password icon" width="25" height="25"></label>
+      <input type="password" id="password" name="password" placeholder="Password"><br><br>
+          <a href="{% url 'zaboravljena_lozinka.html' %}">  Zaboravio si lozinku?</a>
+          <button type="submit">Prijavi se</button>
+
+    <div style="display: flex">
+        <p style="text-align: left; width: 50%">
+        <a href="{% url 'registracija_vlasnika_prostora.html' %}" style="font-weight: bold">REGISTRUJ SE AKO IMAŠ SALU</a>
+    </p>
+
+    <p style="text-align: right; width: 50%">
+        <a href="{% url 'registracija_igraca.html' %}" style="font-weight: bold" >REGISTRUJ SE AKO ŽELIŠ DA IGRAŠ</a>
+    </p>
+    </div>
+
+
+
+    </form>
+
+
+
+  </body>
+
+  <footer>
+    <p>&nbsp</p>
+  </footer>
+</html>

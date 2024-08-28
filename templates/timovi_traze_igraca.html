@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Oglasi za igrače</title>
+      <link rel="stylesheet" href="../static/css/template_style.css">
+      <link rel="stylesheet" href="../static/css/timovi_traze.css">
+      <script src="../static/java/pocetna_stranica_igraca.js"></script>
+      <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+  <div class="header">
+    <div class="logo">
+      <img src="../static/img/soccer-ball-icon.png" alt="soccer ball icon">
+      Treće Poluvreme
+    </div>
+  </div>
+
+  </head>
+  <body style="
+         background: url('../static/img/balon1.avif') no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+  width: 100%;
+  height: 100vh;
+
+                 ">
+    <main>
+        <section id="teams">
+          <h2 style="text-align: center">Timovi koji traže igrače</h2>
+            {% for tim in timS %}
+          <div class="team">
+
+            <h4>{{ tim.naziv }} ({{ tim.mesto.mesto }})</h4>
+
+              <p>Kapiten: {{ tim.idk_c_field }}</p>
+              <p>Tražimo igrača! Prijavi se ako si zainteresovan</p>
+              <p class="hid" id="hidac-{{ forloop.counter }}">{{ tim.naziv }}</p>
+              <p class="hid" id="hida-{{ forloop.counter }}">{{ forloop.counter }}, {{ tim.idt }}, {{ request.user.username }}</p>
+              <form id="f1" method="post" action={% url "reqToJoin" %} style="display:flex;justify-content:center;align-content:center">
+                  {%  csrf_token %}
+                  {{ forma.skriveno }}
+                  <button class="request-btn" onclick="prosledi({{ forloop.counter }},document.getElementById('hida-'+{{ forloop.counter }}).innerText)">Pošalji zahtev</button>
+              </form>
+          </div>
+
+              {% endfor %}
+        </section>
+      </main>
+
+
+  </body>
+  <footer>
+    <p>&nbsp</p>
+  </footer>
+</html>
+
+
+
+{#{% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html>#}
+{##}
+{#  <head>#}
+{#    <title>Treće Poluvreme</title>#}
+{#    <link rel="stylesheet" type="text/css" href="../static/css/template_style.css">#}
+{#      <link rel="stylesheet" type="text/css" href="../static/css/timovi_traze.css">#}
+{##}
+{#  </head>#}
+{#  <body>#}
+{#    <header>#}
+{#      <div class="logo">#}
+{#        <img src="../static/img/soccer-ball-icon.png">#}
+{#        <h1>Treće Poluvreme</h1>#}
+{##}
+{#      </div>#}
+{#          <div class="video-background">#}
+{#              <video autoplay muted loop>#}
+{#                <source src="../static/video/background_video_first_page.mp4" type="video/mp4">#}
+{#              </video>#}
+{#          </div>#}
+{#    </header>#}
+{##}
+{#    <main>#}
+{#      <section id="teams">#}
+{#        <h2>Teams</h2>#}
+{#          {% for tim in timS %}#}
+{#            {% if forloop.first %}#}
+{#                <div class="col-lg-3 col-md-3 col-sm-6 col-6">#}
+{#                    <p><a href="/property/listings/?tim={{ tim }}" class="fot-text">{{ tim }}</a></p>#}
+{#            {% elif forloop.counter|divisibleby:"4" and not forloop.last %}#}
+{#                    <p><a href="/property/listings/?tim={{ tim }}" class="fot-text">{{ tim }}</a></p>#}
+{#                </div>#}
+{#                <div class="col-lg-3 col-md-3 col-sm-6 col-6">#}
+{#            {% elif not forloop.last %}#}
+{#                    <p><a href="/property/listings/?tim={{ tim }}" class="fot-text">{{ tim }}</a></p>#}
+{#            {% endif %}#}
+{#            {% if forloop.last %}#}
+{#                {% if forloop.first %}#}
+{#                    </div>#}
+{#                {% else %}#}
+{#                        <p><a href="/property/listings/?tim={{ tim }}" class="fot-text">{{ tim }}</a></p>#}
+{#                    </div>#}
+{#                {% endif %}#}
+{#            {% endif %}#}
+{#        {% endfor %}#}
+{##}
+{#      </section>#}
+{#    </main>#}
+{##}
+{#    <footer>#}
+{#      <p>&nbsp</p>#}
+{#    </footer>#}
+{#  </body>#}
+{#</html>#}

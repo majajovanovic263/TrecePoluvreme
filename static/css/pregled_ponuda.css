@@ -1,0 +1,47 @@
+.week-calendar {
+    margin: 0 auto;
+    width: 80%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+table th, table td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: white;
+}
+
+table th {
+    background-color: #333;
+    color: #fff;
+}
+
+table td.available {
+    background-color: #99ff99;
+    cursor: pointer;
+}
+
+table td.unavailable {
+    background-color: #ff9999;
+}
+
+.offer-list {
+    margin-top: 20px;
+}
+
+.offer {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.no-offer {
+    font-style: italic;
+    color: #999;
+}
